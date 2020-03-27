@@ -23,13 +23,13 @@ def get_virus_data(file_paths: list):
     return names, genomes
 
 
-def string_match(str1: str, str2: str):
+def percentual_string_match(str1: str, str2: str):
     min_len = min(len(str1), len(str2))
     return round(100 / len(str1) * sum([str1[i] == str2[i] and str1[i] != ' ' for i in range(min_len)]), 2)
 
 
 def print_table(table, names):
-    table, names = [names] + table, ['g. 1 \ g.2'] + names
+    table, names = [names] + table, ['g. 1 \\ g.2'] + names
     table = [[names[i]] + table[i] for i in range(len(names))]
 
     for row in table:
@@ -43,7 +43,7 @@ def entry():
     my_path = "genomas"
     names, genomes = get_virus_data(files_in_dir(my_path))
 
-    table = [[string_match(f_gen, s_gen) for s_gen in genomes] for f_gen in genomes]
+    table = [[percentual_string_match(f_gen, s_gen) for s_gen in genomes] for f_gen in genomes]
     print_table(table, names)
 
 
